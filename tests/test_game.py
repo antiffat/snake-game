@@ -32,3 +32,9 @@ def test_snake_collision_with_wall():
     game.move_snake('LEFT')
     assert game.game_over, "Game should end when the snake hits a wall."
 
+# test snake eating food
+def test_snake_eating_food():
+    game = Game(10, 10, "Tester")
+    game.food = game.snake[0] # place food on the snake's head for testing
+    game.move_snake('RIGHT')
+    assert len(game.snake) > 1, "Snake should grow after eating food."
