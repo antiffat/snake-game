@@ -1,4 +1,7 @@
+import random
 import sys
+import time
+
 
 class Game:
     MIN_SIZE = 5
@@ -15,5 +18,45 @@ class Game:
         self.game_over = False
         self.food = self.spawn_food()
 
+    def spawn_food(self):
+        while True:
+            food = (random.randint(0, self.width - 1), random.randint(0, self.height - 1))
+            if food not in self.snake:
+                return food
 
+    def move_snake(self, direction):
+        head_x, head_y = self.snake[0]
+        if direction == "UP":
+            head_y -= 1
+        elif direction == "DOWN":
+            head_y += 1
+        elif direction == "LEFT":
+            head_x -= 1
+        elif direction == "RIGHT":
+            head_x += 1
+        new_head = (head_x, head_y) # what the heck is it
+
+        if new_head in self.snake or not (0 <= head_x < self.width and 0 <= head_y < self.height):
+            self.game_over = True
+            print("Game Over!")
+        else:
+            self.snake.insert(0, new_head)
+            if new_head == self.food:
+                self.score += 1
+                self.food = self.spawn_food()
+            else:
+                self.snake.pop()
+
+    def check_win(self):
+        return len(self.snake) == self.width * self.height
+
+
+
+
+if __name__ == "__main__":
+    width = int(input("Enter the width of the game board (5 to 25): "))
+    height = int(input("Enter the height of the game board (5 to 25): "))
+    player_name = input("Enter your name: ")
+    game = Game(width, height, player_name)
+    game.run()
 
