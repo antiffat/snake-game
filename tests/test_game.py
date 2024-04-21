@@ -35,9 +35,11 @@ def test_snake_collision_with_wall():
 # test snake eating food
 def test_snake_eating_food():
     game = Game(10, 10, "Tester")
-    game.food = game.snake[0] # place food on the snake's head for testing
+    initial_length = len(game.snake)
+    game.food = (game.snake[0][0] + 1, game.snake[0][1])  # place food to the right of the head
     game.move_snake('RIGHT')
-    assert len(game.snake) > 1, "Snake should grow after eating food."
+    assert len(game.snake) == initial_length + 1, "Snake should grow after eating food."
+
 
 # test game over by snake running into itself
 def test_snake_collision_with_self():
