@@ -44,8 +44,13 @@ def test_snake_eating_food():
 # test game over by snake running into itself
 def test_snake_collision_with_self():
     game = Game(10, 10, "Tester")
-    # create a scenario where the snake runs into itself
-    game.snake = [(2, 2), (3, 2), (3, 3), (2, 3), (2, 4)]
-    game.move_snake('UP')
-    assert game.game_over, "Game should end when the snake runs into itself."
+    game.snake = [
+        (5, 2),  # Head of the snake
+        (5, 4),
+        (5, 3),
+        (5, 2)
+    ]
+    # move the snake down into itself
+    game.move_snake("DOWN")
 
+    assert game.game_over, "The game should end when the snake runs into itself."

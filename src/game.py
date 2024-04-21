@@ -26,7 +26,7 @@ class Game:
 
     def move_snake(self, direction):
         head_x, head_y = self.snake[0]
-        if direction == "UP": ## WHY FOR UP WE DECREMENT BY ONE
+        if direction == "UP":
             head_y -= 1
         elif direction == "DOWN":
             head_y += 1
@@ -34,7 +34,7 @@ class Game:
             head_x -= 1
         elif direction == "RIGHT":
             head_x += 1
-        new_head = (head_x, head_y) # what the heck is it
+        new_head = (head_x, head_y)
 
         if new_head in self.snake or not (0 <= head_x < self.width and 0 <= head_y < self.height):
             self.game_over = True
