@@ -26,7 +26,7 @@ class Game:
 
     def move_snake(self, direction):
         head_x, head_y = self.snake[0]
-        if direction == "UP":
+        if direction == "UP": ## WHY FOR UP WE DECREMENT BY ONE
             head_y -= 1
         elif direction == "DOWN":
             head_y += 1
@@ -50,8 +50,42 @@ class Game:
     def check_win(self):
         return len(self.snake) == self.width * self.height
 
+    def run(self):
+        print(f"Welcome {self.player_name}! The game board is {self.width}x{self.height}.")
+        try:
+            while not self.game_over:
+                self.print_board()
+                if self.check_win():
+                    print("Congratulations! You've won the game by filling the board!")
+                    break
+                valid_input = False
+                while not valid_input:
+                    direction = input("Enter direction (UP, DOWN, LEFT, RIGHT): ").strip().upper()
+                    if direction in {'UP', 'DOWN', 'LEFT', 'RIGHT'}:
+                        valid_input = True
+                        self.move_snake(direction)
+                    else:
+                        print("Invalid input! Please enter one of: UP, DOWN, LEFT, RIGHT.")
+                time.sleep(0.25)
+        except KeyboardInterrupt:
+            print("Game interrupted.")
 
+    def print_board(self):
+        print("+" + "---" * self.width + "+")
 
+        for y in range(self.height):
+            print("|", end="")
+            for x in range(self.width):
+                if (x, y) in self.snake:
+                    print(" * ", end="")
+                elif (x, y) == self.food:
+                    print(" # ", end="")
+                else:
+                    print("   ", end="")
+            print("|")
+
+        print("+" + "---" * self.width + "+")
+        print(f"Score: {self.score}")
 
 if __name__ == "__main__":
     width = int(input("Enter the width of the game board (5 to 25): "))
