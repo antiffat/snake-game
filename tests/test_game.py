@@ -38,3 +38,12 @@ def test_snake_eating_food():
     game.food = game.snake[0] # place food on the snake's head for testing
     game.move_snake('RIGHT')
     assert len(game.snake) > 1, "Snake should grow after eating food."
+
+# test game over by snake running into itself
+def test_snake_collision_with_self():
+    game = Game(10, 10, "Tester")
+    # create a scenario where the snake runs into itself
+    game.snake = [(2, 2), (3, 2), (3, 3), (2, 3), (2, 4)]
+    game.move_snake('UP')
+    assert game.game_over, "Game should end when the snake runs into itself."
+
