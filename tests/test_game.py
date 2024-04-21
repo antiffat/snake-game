@@ -23,3 +23,12 @@ def test_snake_movement():
     initial_head = game.snake[0]
     game.move_snake('RIGHT')
     assert game.snake[0] == (initial_head[0] + 1, initial_head[1]), "Snake should move right correctly."
+
+# test snake collision with walls
+def test_snake_collision_with_wall():
+    game = Game(5, 5, "Tester")
+    # move snake directly into the wall
+    game.snake = [(0, 0)]
+    game.move_snake('LEFT')
+    assert game.game_over, "Game should end when the snake hits a wall."
+
